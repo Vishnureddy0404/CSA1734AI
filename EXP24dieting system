@@ -1,0 +1,46 @@
+% Facts about diseases and diet recommendations
+diet_recommendation(diabetes, [
+    avoid(sugar),
+    limit(carbohydrates),
+    eat(vegetables),
+    eat(fruits_in_moderation),
+    eat(lean_proteins)
+]).
+
+diet_recommendation(hypertension, [
+    limit(sodium),
+    eat(potassium-rich_foods),
+    eat(fruits_and_vegetables),
+    reduce_fatty_foods,
+    limit_alcohol
+]).
+
+% Rules to suggest diet based on disease
+suggest_diet(Disease) :-
+    diet_recommendation(Disease, Recommendations),
+    write('For '), write(Disease), write(':'), nl,
+    print_recommendations(Recommendations).
+
+% Helper predicate to print recommendations
+print_recommendations([]).
+print_recommendations([Recommendation|Rest]) :-
+    write('- '), write_recommendation(Recommendation), nl,
+    print_recommendations(Rest).
+
+write_recommendation(avoid(Item)) :-
+    write('Avoid '), write(Item).
+write_recommendation(limit(Item)) :-
+    write('Limit '), write(Item).
+write_recommendation(eat(Item)) :-
+    write('Eat '), write(Item).
+write_recommendation(reduce_fatty_foods) :-
+    write('Reduce fatty foods').
+write_recommendation(limit_alcohol) :-
+    write('Limit alcohol consumption').
+
+% Example usage:
+% To suggest a diet for diabetes:
+% ?- suggest_diet(diabetes).
+%
+% To suggest a diet for hypertension:
+% ?- suggest_diet(hypertension).

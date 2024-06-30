@@ -1,0 +1,53 @@
+% Facts about planets in our solar system
+planet(mercury).
+planet(venus).
+planet(earth).
+planet(mars).
+planet(jupiter).
+planet(saturn).
+planet(uranus).
+planet(neptune).
+
+% Facts about some properties of planets
+planet_property(mercury, distance_from_sun, 0.39).
+planet_property(venus, distance_from_sun, 0.72).
+planet_property(earth, distance_from_sun, 1.00).
+planet_property(mars, distance_from_sun, 1.52).
+planet_property(jupiter, distance_from_sun, 5.20).
+planet_property(saturn, distance_from_sun, 9.58).
+planet_property(uranus, distance_from_sun, 19.22).
+planet_property(neptune, distance_from_sun, 30.05).
+
+planet_property(mercury, diameter, 4879).
+planet_property(venus, diameter, 12104).
+planet_property(earth, diameter, 12756).
+planet_property(mars, diameter, 6792).
+planet_property(jupiter, diameter, 142984).
+planet_property(saturn, diameter, 120536).
+planet_property(uranus, diameter, 51118).
+planet_property(neptune, diameter, 49528).
+
+planet_property(mercury, moons, 0).
+planet_property(venus, moons, 0).
+planet_property(earth, moons, 1).
+planet_property(mars, moons, 2).
+planet_property(jupiter, moons, 79).
+planet_property(saturn, moons, 82).
+planet_property(uranus, moons, 27).
+planet_property(neptune, moons, 14).
+
+% Rules
+has_moons(Planet) :-
+    planet_property(Planet, moons, Moons),
+    Moons > 0.
+
+% Queries
+% Which planets have moons?
+% ?- has_moons(Planet).
+
+% What is the diameter of Saturn?
+% ?- planet_property(saturn, diameter, Diameter).
+
+% Which planet is the farthest from the Sun?
+% ?- planet_property(Planet, distance_from_sun, Distance),
+%    \+ (planet_property(_, distance_from_sun, OtherDistance), OtherDistance > Distance).

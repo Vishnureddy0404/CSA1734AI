@@ -1,0 +1,23 @@
+% Facts about birds and their ability to fly
+bird(penguin).
+bird(ostrich).
+bird(sparrow).
+bird(albatross).
+
+can_fly(sparrow).
+can_fly(albatross).
+
+% Rules
+flies(Bird) :-
+    bird(Bird),
+    can_fly(Bird).
+
+% Queries
+% Is sparrow able to fly?
+% ?- flies(sparrow).
+
+% Can ostrich fly?
+% ?- flies(ostrich).
+
+% Which birds can fly?
+% ?- flies(Bird).

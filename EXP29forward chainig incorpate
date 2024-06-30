@@ -1,0 +1,47 @@
+% Facts
+fact(sunny).
+fact(weekend).
+
+% Rules
+rule(go_to_beach) :-
+    fact(sunny),
+    fact(weekend).
+
+rule(read_book) :-
+    fact(rainy),
+    fact(weekend).
+
+rule(stay_home) :-
+    fact(rainy),
+    fact(weekday).
+
+rule(go_to_work) :-
+    fact(sunny),
+    fact(weekday).
+
+% Inference Engine: Apply rules to deduce new facts
+infer(NewFact) :-
+    rule(NewFact),
+    \+ fact(NewFact), % Ensure the fact is not already known
+    assertz(fact(NewFact)),
+    writeln(NewFact).
+
+% Trigger forward chaining inference
+forward_chain :-
+    infer(NewFact),
+    fail. % Force backtracking to find all possible inferences
+forward_chain.
+
+% Query to start the inference process
+query_inference :-
+    writeln('Starting forward chaining inference...'),
+    forward_chain,
+    writeln('Inference complete.').
+
+% Query to check if a specific fact is true
+query_fact(Fact) :-
+    ( fact(Fact) ->
+        format('~w is true.', [Fact])
+    ;
+        format('~w is false.', [Fact])
+    ).

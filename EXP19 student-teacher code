@@ -1,0 +1,25 @@
+% Facts
+teacher(teacher1, math).
+teacher(teacher2, physics).
+teacher(teacher3, chemistry).
+
+student(john, math).
+student(john, physics).
+student(emma, physics).
+student(emma, chemistry).
+student(jane, chemistry).
+
+% Rules
+teaches_subject(Teacher, Subject) :-
+    teacher(Teacher, Subject).
+
+teaches_student(Teacher, Student) :-
+    student(Student, Subject),
+    teaches_subject(Teacher, Subject).
+
+% Queries
+% Who teaches math?
+% ?- teaches_subject(Teacher, math).
+
+% Which students does teacher2 teach?
+% ?- teaches_student(teacher2, Student).

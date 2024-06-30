@@ -1,0 +1,32 @@
+% Define symptoms
+symptom(john, fever).
+symptom(john, cough).
+symptom(john, headache).
+symptom(mary, cough).
+symptom(mary, sore_throat).
+symptom(mary, runny_nose).
+symptom(steve, fever).
+symptom(steve, headache).
+symptom(steve, nausea).
+
+% Define diseases and their symptoms
+disease(cold, [cough, sore_throat, runny_nose]).
+disease(flu, [fever, cough, headache, nausea]).
+disease(headache_only, [headache]).
+
+% Define rules for diagnosis
+diagnosis(Person, Disease) :-
+    symptom(Person, Symptom),
+    disease(Disease, Symptoms),
+    member(Symptom, Symptoms).
+
+% Query examples:
+% 1. Who has a fever?
+% ?- symptom(Person, fever).
+
+% 2. What diseases does John have based on his symptoms?
+% ?- symptom(john, Symptom), diagnosis(john, Disease).
+
+% 3. What diseases does Mary have based on her symptoms?
+% ?- symptom(mary, Symptom), diagnosis(mary, Disease).
+

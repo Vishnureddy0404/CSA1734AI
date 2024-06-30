@@ -1,0 +1,19 @@
+% Facts: name and date of birth (dob)
+dob(john, date(1990, 5, 20)).
+dob(mary, date(1985, 12, 15)).
+dob(peter, date(1992, 8, 25)).
+dob(lucy, date(2000, 3, 10)).
+dob(susan, date(1995, 7, 30)).
+
+% Rule to find DOB of a person
+find_dob(Name, DOB) :-
+    dob(Name, DOB).
+
+% Rule to find people born in a specific year
+born_in_year(Year, Name) :-
+    dob(Name, date(Year, _, _)).
+
+% Rule to find people born before a specific year
+born_before(Year, Name) :-
+    dob(Name, date(Y, _, _)),
+    Y < Year.

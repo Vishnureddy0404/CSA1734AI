@@ -1,0 +1,50 @@
+% Define the heuristic function for states
+heuristic(state(S), H) :-
+    heuristic_value(S, H).
+
+% Define the heuristic values for states (example values)
+heuristic_value(state(A), 5) :- A > 5.
+heuristic_value(state(A), 3) :- A > 3.
+heuristic_value(state(A), 1) :- A > 0.
+
+% Define the initial state
+initial_state(state(0)).
+
+% Define the goal state
+goal_state(state(10)).
+
+% Define the possible actions and their effects
+% In this example, actions just increase the state value by 1
+action(state(X), state(Y)) :- Y is X + 1.
+
+% Implementing the Best-First Search algorithm
+best_first_search(State, Visited, [State|Path]) :-
+    goal_state(State),
+    reverse([State], Path).
+best_first_search(State, Visited, Path) :-
+    expand(State, NextStates),
+    append(NextStates, Visited, NewVisited),
+    best_next_state(NextStates, NewVisited, BestState),
+    best_first_search(BestState, NewVisited, Path).
+
+% Expand the current state to find possible next states
+expand(State, NextStates) :-
+    findall(NewState, action(State, NewState), NextStates).
+
+% Choose the best next state based on heuristic values
+best_next_state([State|States], Visited, BestState) :-
+    heuristic(State, H),
+    best_next_state(States, Visited, State, H, BestState).
+
+best_next_state([], _, CurrentBest, _, CurrentBest).
+best_next_state([State|States], Visited, CurrentBest, CurrentBestH, BestState) :-
+    heuristic(State, H),
+    H < CurrentBestH,
+    \+ member(State, Visited),
+    best_next_state(States, Visited, State, H, BestState).
+best_next_state([_|States], Visited, CurrentBest, CurrentBestH, BestState) :-
+    best_next_state(States, Visited, CurrentBest, CurrentBestH, BestState).
+
+% Example usage:
+% Find a path from initial state to goal state using Best-First Search
+% ?- initial_state(InitialState), best_first_search(InitialState, [], Path).
